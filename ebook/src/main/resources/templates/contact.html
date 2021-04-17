@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
-        <title>View Contact</title>
+        <title>View Book</title>
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     </head>
@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <a th:href="@{/contacts}">Back to Contact List</a>
+        <a th:href="@{/books}">Back to Book List</a>
         <br/><br/>
 		        <div th:if="${contact}">
 		            <table border="0">
@@ -75,10 +75,10 @@
 		            </table>
 		            <br/><br/>
 		            <div th:if="not ${allowDelete}">
-		                <a th:href="@{/contacts/{contactId}/edit(contactId=${contact.id})}">Edit</a> |
-		                <a th:href="@{/contacts/{contactId}/delete(contactId=${contact.id})}">Delete</a>
+		                <a th:href="@{/books/{contactId}/edit(contactId=${contact.id})}">Edit</a> |
+		                <a th:href="@{/books/{contactId}/delete(contactId=${contact.id})}">Delete</a>
 		            </div>
-		            <form th:if="${allowDelete}" th:action="@{/contacts/{contactId}/delete(contactId=${contact.id})}" method="POST">
+		            <form th:if="${allowDelete}" th:action="@{/books/{contactId}/delete(contactId=${contact.id})}" method="POST">
 		                Delete this contact? <input type="submit" th:value="Yes" />
 		            </form>
 		        </div>

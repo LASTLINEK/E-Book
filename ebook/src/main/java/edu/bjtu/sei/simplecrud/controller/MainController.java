@@ -22,14 +22,14 @@ public class MainController {
     @GetMapping(value = {"/","/index"})
     public String root() {
     	
-        return "redirect:/contacts";
+        return "redirect:/books";
     }
 
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken))
-    		 return "redirect:/contacts";
+    		 return "redirect:/books";
 
         else 
 	         return "login";

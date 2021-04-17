@@ -3,28 +3,22 @@ package edu.bjtu.sei.simplecrud.controller;
 import edu.bjtu.sei.simplecrud.domain.Contact;
 import edu.bjtu.sei.simplecrud.exception.ResourceNotFoundException;
 import edu.bjtu.sei.simplecrud.service.ContactService;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
-public class ContactController {
+public class BookController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
@@ -32,20 +26,14 @@ public class ContactController {
     private int ROW_PER_PAGE;
 
     @Autowired
-    private ContactService contactService;
+    private ContactService bookService;
 
     @Value("${msg.title}")
     private String title;
 
-//    @GetMapping(value = {"/","/index"})
-//    public String root() {
-//    	
-//        return "redirect:/contacts";
-//    }
-
     
-    @GetMapping(value = "/contacts")
-    public String getContacts(Model model,
+    @GetMapping(value = "/books")
+    public String getBooks(Model model,
             @RequestParam(value = "page", defaultValue = "1") int pageNumber, HttpServletRequest request) {
     	
         @SuppressWarnings("unchecked")
@@ -58,14 +46,14 @@ public class ContactController {
             request.getSession().setAttribute("LOGS_SESSION", logs);
         }
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        //String log = request.getUserPrincipal().getName() + "/" + timeStamp + "/" + "list contacts";
-        String log = timeStamp + "/" + "list contacts";
+        //String log = request.getUserPrincipal().getName() + "/" + timeStamp + "/" + "list books";
+        String log = timeStamp + "/" + "list books";
         logs.add(log);
         request.getSession().setAttribute("LOGS_SESSION", logs);
 
-        List<Contact> contacts = contactService.findAll(pageNumber, ROW_PER_PAGE);
+        List<Contact> contacts = bookService.findAll(pageNumber, ROW_PER_PAGE);
 
-        long count = contactService.count();
+        long count = bookService.count();
         boolean hasPrev = pageNumber > 1;
         boolean hasNext = (pageNumber * ROW_PER_PAGE) < count;
         model.addAttribute("contacts", contacts);
@@ -76,11 +64,11 @@ public class ContactController {
         return "contact-list";
     }
 
-    @GetMapping(value = "/contacts/{contactId}")
-    public String getContactById(Model model, @PathVariable long contactId) {
+    @GetMapping(value = "/books/{contactId}")
+    public String getBookById(Model model, @PathVariable long contactId) {
         Contact contact = null;
         try {
-            contact = contactService.findById(contactId);
+            contact = bookService.findById(contactId);
         } catch (ResourceNotFoundException ex) {
             model.addAttribute("errorMessage", "Contact not found");
         }
@@ -89,8 +77,8 @@ public class ContactController {
         return "contact";
     }
 
-    @GetMapping(value = {"/contacts/add"})
-    public String showAddContact(Model model) {
+    @GetMapping(value = {"/books/add"})
+    public String showAddBook(Model model) {
         Contact contact = new Contact();
         model.addAttribute("add", true);
         model.addAttribute("contact", contact);
@@ -98,14 +86,14 @@ public class ContactController {
         return "contact-edit";
     }
 
-    @PostMapping(value = "/contacts/add")
-    public String addContact(Model model,
+    @PostMapping(value = "/books/add")
+    public String addBook(Model model,
             @ModelAttribute("contact") Contact contact) {        
         try {
-            //Contact newContact = contactService.save(contact);
-        	contactService.save(contact);
-        	int p = (int) Math.ceil(contactService.count()/ROW_PER_PAGE)+1;
-            return "redirect:/contacts?page=" + String.valueOf(p);
+            //Contact newContact = bookService.save(contact);
+        	bookService.save(contact);
+        	int p = (int) Math.ceil(bookService.count()/ROW_PER_PAGE)+1;
+            return "redirect:/books?page=" + String.valueOf(p);
         } catch (Exception ex) {
             // log exception first, 
             // then show error
@@ -119,11 +107,11 @@ public class ContactController {
         }        
     }
 
-    @GetMapping(value = {"/contacts/{contactId}/edit"})
-    public String showEditContact(Model model, @PathVariable long contactId) {
+    @GetMapping(value = {"/books/{contactId}/edit"})
+    public String showEditBook(Model model, @PathVariable long contactId) {
         Contact contact = null;
         try {
-            contact = contactService.findById(contactId);
+            contact = bookService.findById(contactId);
         } catch (ResourceNotFoundException ex) {
             model.addAttribute("errorMessage", "Contact not found");
         }
@@ -132,14 +120,14 @@ public class ContactController {
         return "contact-edit";
     }
 
-    @PostMapping(value = {"/contacts/{contactId}/edit"})
-    public String updateContact(Model model,
+    @PostMapping(value = {"/books/{contactId}/edit"})
+    public String updateBook(Model model,
             @PathVariable long contactId,
             @ModelAttribute("contact") Contact contact) {        
         try {
             contact.setId(contactId);
-            contactService.update(contact);
-            return "redirect:/contacts/" + String.valueOf(contact.getId());
+            bookService.update(contact);
+            return "redirect:/books/" + String.valueOf(contact.getId());
         } catch (Exception ex) {
             // log exception first, 
             // then show error
@@ -152,12 +140,12 @@ public class ContactController {
         }
     }
 
-    @GetMapping(value = {"/contacts/{contactId}/delete"})
-    public String showDeleteContactById(
+    @GetMapping(value = {"/books/{contactId}/delete"})
+    public String showDeleteBookById(
             Model model, @PathVariable long contactId) {
         Contact contact = null;
         try {
-            contact = contactService.findById(contactId);
+            contact = bookService.findById(contactId);
         } catch (ResourceNotFoundException ex) {
             model.addAttribute("errorMessage", "Contact not found");
         }
@@ -166,12 +154,12 @@ public class ContactController {
         return "contact";
     }
 
-    @PostMapping(value = {"/contacts/{contactId}/delete"})
-    public String deleteContactById(
+    @PostMapping(value = {"/books/{contactId}/delete"})
+    public String deleteBookById(
             Model model, @PathVariable long contactId) {
         try {
-            contactService.deleteById(contactId);
-            return "redirect:/contacts";
+            bookService.deleteById(contactId);
+            return "redirect:/books";
         } catch (ResourceNotFoundException ex) {
             String errorMessage = ex.getMessage();
             logger.error(errorMessage);

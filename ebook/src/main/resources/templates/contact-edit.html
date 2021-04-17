@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
-        <title th:text="${add} ? 'Create a Contact' : 'Edit a Contact'"></title>
+        <title th:text="${add} ? 'Create a Book' : 'Edit a Book'"></title>
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
     </head>
@@ -12,10 +12,10 @@
 	<div class="row">
 	<div class="col-md-6 col-md-offset-3">
 
-        <h1 th:text="${add} ? 'Cretate a Contact:' : 'Edit a Contact:'"></h1>
-        <a th:href="@{/contacts}">Back to Contact List</a>
+        <h1 th:text="${add} ? 'Cretate a Book:' : 'Edit a Book:'"></h1>
+        <a th:href="@{/books}">Back to Book List</a>
         <br/><br/>
-        <form th:action="${add} ? @{/contacts/add} : @{/contacts/{contactId}/edit(contactId=${contact.id})}"
+        <form th:action="${add} ? @{/books/add} : @{/books/{contactId}/edit(contactId=${contact.id})}"
               th:object="${contact}" method="POST">
             <table class="table table-striped" border="0">
                 <tr th:if="${contact.id}">
@@ -29,34 +29,9 @@
                     <td><input type="text" class="form-control" th:field="*{name}" /></td>              
                 </tr>
                 <tr>
-                    <td class="control-label">Phone</td>
+                    <td class="control-label">Author</td>
                     <td>:</td>
                     <td><input type="text" class="form-control" th:field="*{phone}" /></td>              
-                </tr>
-                <tr>
-                    <td class="control-label">Email</td>
-                    <td>:</td>
-                    <td><input type="text"  class="form-control" th:field="*{email}" /></td>              
-                </tr>
-                <tr>
-                    <td class="control-label">Address</td>
-                    <td>:</td>
-                    <td><input type="text"  class="form-control" th:field="*{address1}" size="50" /></td>              
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td><input type="text" class="form-control" th:field="*{address2}" size="50" /></td>              
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td><input type="text" class="form-control" th:field="*{address3}" size="50" /></td>              
-                </tr>
-                <tr>
-                    <td class="control-label">Postal Code</td>
-                    <td>:</td>
-                    <td><input type="text" class="form-control" th:field="*{postalCode}" /></td>              
                 </tr>
                 <tr>
                     <td class="control-label">Notes</td>

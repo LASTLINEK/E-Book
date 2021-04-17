@@ -33,36 +33,15 @@ public class Book implements Serializable {
 
     //@Pattern(regexp ="^(0[0-9]{2,3}/-)?([2-9][0-9]{6,7})+(/-[0-9]{1,4})?$", message = "Phone number")
     @Size(max = 25)
-    private String phone;
-
-    @Email(message = "Email Address")
-    @Size(max = 100)
-    private String email;
-
-    @Size(max = 50)
-    private String address1;
-
-    @Size(max = 50)
-    private String address2;
-
-    @Size(max = 50)
-    private String address3;
-
-    @Size(max = 20)
-    private String postalCode;
+    private String author;
 
     @Size(max = 1024)
     private String note;
 
-    public void setContact(Long Id, String Name, String Phone, String Email, String Address1, String Address2, String Address3, String Postalcode, String Note) {
-        id = Id;
-        name = Name;
-        phone = Phone;
-        email = Email;
-        address1 = Address1;
-        address2 = Address2;
-        address3 = Address3;
-        postalCode = Postalcode;
-        note = Note;
+    public void setBook(Long id, String name, String author, String note){
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.note = note;
     }
 }
