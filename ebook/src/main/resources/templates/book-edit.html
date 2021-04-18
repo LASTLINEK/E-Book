@@ -15,9 +15,8 @@
         <h1 th:text="${add} ? 'Cretate a Book:' : 'Edit a Book:'"></h1>
         <a th:href="@{/books}">Back to Book List</a>
         <br/><br/>
-        <form
-              th:action="${add} ? @{/books/add} : @{/books/{bookId}/edit(bookId=${book.id})}"
-              th:object="${book}" method="POST">
+        <form th:action="${add} ? @{/books/add} : @{/books/{bookId}/edit(bookId=${book.id})}"
+              th:object="${book}" enctype="multipart/form-data" method="POST">
             <table class="table table-striped" border="0">
                 <tr th:if="${book.id}">
                     <td class="control-label">ID</td>
@@ -37,7 +36,7 @@
                 <tr>
                     <td class="control-label">Content</td>
                     <td>:</td>
-                    <td><input type="file" th:value="上传"/></td>
+                    <td><input type="file" name="file"/></td>
                 </tr>
                 <tr>
                     <td class="control-label">Notes</td>

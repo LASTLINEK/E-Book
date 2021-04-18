@@ -61,6 +61,6 @@ public class Book implements Serializable {
     }
 
     public long count(){
-        return 30;
+        return ReadBook.count();
     }
 }

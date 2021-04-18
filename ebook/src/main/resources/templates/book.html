@@ -56,7 +56,9 @@
 		            <div th:if="not ${allowDelete}">
 		                <a th:href="@{/books/{bookId}/edit(bookId=${book.id})}">Edit</a> |
 		                <a th:href="@{/books/{bookId}/delete(bookId=${book.id})}">Delete</a> |
-		                <a th:href="@{/books/{bookId}/read(bookId=${book.id})}">Read</a>
+		                <a th:href="@{/books/{bookId}/read(bookId=${book.id})}">Read</a> |
+		                <a th:href="@{/books/{bookId}/download(bookId=${book.id})}">Download</a> |
+		                <a th:href="@{/books/{bookId}/uploadUI(bookId=${book.id})}">upload</a>
 		            </div>
 		            <form th:if="${allowDelete}" th:action="@{/books/{bookId}/delete(bookId=${book.id})}" method="POST">
 		                Delete this book? <input type="submit" th:value="Yes" />

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>文件上传</title>
+</head>
+
+<body>
+
+<form method="POST" action="/books/upload" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label path="file_upload">Select a file to upload</label></td>
+            <td><input type="file" name="file_upload" id="upload_file"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+
+</html>
