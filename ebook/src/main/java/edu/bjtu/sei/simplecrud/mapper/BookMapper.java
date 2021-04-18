@@ -1,7 +1,6 @@
 package edu.bjtu.sei.simplecrud.mapper;
 
 import edu.bjtu.sei.simplecrud.domain.Book;
-import edu.bjtu.sei.simplecrud.domain.Contact;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
