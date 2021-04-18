@@ -35,17 +35,26 @@ public class Book implements Serializable {
     @Size(max = 25)
     private String author;
 
+    @Size(max = 100)
+    private String path;
+
     @Size(max = 1024)
     private String content;
 
     @Size(max = 1024)
     private String note;
 
-    public void setBook(Long id, String name, String author, String content, String note){
+    public void setBook(Long id, String name, String author, String path, String content, String note){
         this.id = id;
         this.name = name;
         this.author = author;
+        this.path = path;
         this.content = content;
         this.note = note;
+    }
+
+    public String getContent(){
+
+        return "书的内容";
     }
 }

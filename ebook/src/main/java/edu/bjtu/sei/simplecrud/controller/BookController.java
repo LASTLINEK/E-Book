@@ -154,6 +154,20 @@ public class BookController {
         return "book";
     }
 
+    @GetMapping(value = {"/books/{bookId}/read"})
+    public String readDeleteBookById(
+            Model model, @PathVariable long bookId) {
+        Book book = null;
+        try {
+            book = bookService.findById(bookId);
+        } catch (ResourceNotFoundException ex) {
+            model.addAttribute("errorMessage", "Book not found");
+        }
+        model.addAttribute("texts", book.getContent());
+        model.addAttribute("book", book);
+        return "book-read";
+    }
+
     @PostMapping(value = {"/books/{bookId}/delete"})
     public String deleteBookById(
             Model model, @PathVariable long bookId) {
