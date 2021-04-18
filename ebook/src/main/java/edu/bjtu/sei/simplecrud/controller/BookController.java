@@ -25,6 +25,10 @@ public class BookController {
     @Value("${msg.rows_per_page}")
     private int ROW_PER_PAGE;
 
+
+    @Value("10")
+    private int READ_PER_PAGE;
+
     @Autowired
     private BookService bookService;
 
@@ -156,15 +160,22 @@ public class BookController {
 
     @GetMapping(value = {"/books/{bookId}/read"})
     public String readDeleteBookById(
-            Model model, @PathVariable long bookId) {
+            Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber, @PathVariable long bookId) {
         Book book = null;
         try {
             book = bookService.findById(bookId);
         } catch (ResourceNotFoundException ex) {
             model.addAttribute("errorMessage", "Book not found");
         }
-        model.addAttribute("texts", book.getContent());
+        long count = book.count();
+        model.addAttribute("texts", book.getContent(pageNumber, READ_PER_PAGE));
         model.addAttribute("book", book);
+        boolean hasPrev = pageNumber > 1;
+        boolean hasNext = (pageNumber * READ_PER_PAGE) < count;
+        model.addAttribute("hasPrev", hasPrev);
+        model.addAttribute("prev", pageNumber - 1);
+        model.addAttribute("hasNext", hasNext);
+        model.addAttribute("next", pageNumber + 1);
         return "book-read";
     }
 

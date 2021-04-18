@@ -53,8 +53,12 @@ public class Book implements Serializable {
         this.note = note;
     }
 
-    public String getContent(){
+    public String getContent(int page, int countPerPage){
 
         return "书的内容";
+    }
+
+    public long count(){
+        return 30;
     }
 }
