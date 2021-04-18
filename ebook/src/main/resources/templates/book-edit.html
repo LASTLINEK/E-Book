@@ -15,7 +15,8 @@
         <h1 th:text="${add} ? 'Cretate a Book:' : 'Edit a Book:'"></h1>
         <a th:href="@{/books}">Back to Book List</a>
         <br/><br/>
-        <form th:action="${add} ? @{/books/add} : @{/books/{bookId}/edit(bookId=${book.id})}"
+        <form
+              th:action="${add} ? @{/books/add} : @{/books/{bookId}/edit(bookId=${book.id})}"
               th:object="${book}" method="POST">
             <table class="table table-striped" border="0">
                 <tr th:if="${book.id}">
@@ -32,6 +33,11 @@
                     <td class="control-label">Author</td>
                     <td>:</td>
                     <td><input type="text" class="form-control" th:field="*{author}" /></td>
+                </tr>
+                <tr>
+                    <td class="control-label">Content</td>
+                    <td>:</td>
+                    <td><input type="file" th:value="上传"/></td>
                 </tr>
                 <tr>
                     <td class="control-label">Notes</td>

@@ -12,6 +12,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 //import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import edu.bjtu.sei.simplecrud.util.ReadBook;
 import lombok.Getter;
 import lombok.Setter;
 //import org.hibernate.annotations.Cache;
@@ -53,9 +55,9 @@ public class Book implements Serializable {
         this.note = note;
     }
 
-    public String getContent(int page, int countPerPage){
+    public String getContent(int chapter, int countPerPage){
 
-        return "书的内容";
+        return ReadBook.preview(id.toString(),chapter);
     }
 
     public long count(){
