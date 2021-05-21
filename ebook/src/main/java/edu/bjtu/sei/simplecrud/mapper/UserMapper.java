@@ -30,7 +30,8 @@ public interface UserMapper {
       //        select属性指定内容：查询用户的唯一标识
       //        column属性指定内容：用户根据id查询账户是所需要的参数
       //        fetchType属性指定内容:指定延时查询FetchType.LAZY或立即查询FetchType.EAGER
-      @Result(property = "roles",column = "id",many = @Many(select = "edu.bjtu.sei.simplecrud.mapper.RoleMapper.findById",fetchType = FetchType.LAZY))})
+      @Result(property = "roles",column = "id",many = @Many(select = "edu.bjtu.sei.simplecrud.mapper.RoleMapper.findById",fetchType = FetchType.LAZY))
+	  })
 	  User findByEmail(String email);
 
 	  @Insert("insert into user values(null,#{user.email},#{user.firstName},#{user.lastName},#{user.password})")
