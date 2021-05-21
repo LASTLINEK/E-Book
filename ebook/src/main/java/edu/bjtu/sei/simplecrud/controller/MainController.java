@@ -27,6 +27,7 @@ public class MainController {
 
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(request.getRequestURI() + " from /");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken))
     		 return "redirect:/books";

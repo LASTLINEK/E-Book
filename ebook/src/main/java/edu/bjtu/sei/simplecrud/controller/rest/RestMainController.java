@@ -1,42 +1,44 @@
-package edu.bjtu.sei.simplecrud.controller;
+package edu.bjtu.sei.simplecrud.controller.rest;
 
 //import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+//import org.springframework.ui.Model;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
 
 
-@Controller
-public class MainController {
+@RestController
+@Tag(name = "loin", description = "login API")
+public class RestMainController {
 
-    @GetMapping(value = {"/","/index"})
-    public String root() {
-    	
-        return "redirect:/books";
-    }
-
-    @GetMapping("/login")
-    public String login(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping("/api/login")
+    public ResponseEntity<Integer> login(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(request.getRequestURI() + " from api");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken))
-    		 return "redirect:/books";
+    		 return ResponseEntity.ok(200);
 
-        else 
-	         return "login";
+        else
+	         return ResponseEntity.ok(405);
 
     }
 
-    @GetMapping(value="/logout")
+    @GetMapping(value="/api/logout")
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){
