@@ -21,10 +21,10 @@
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0px" class="loginForm">
       <h1 class="loginTitle">E-BOOK系统</h1>
       <el-form-item prop="name">
-        <el-input type="text" v-model="ruleForm.name" placeholder="请输入账号" autocomplete="off"></el-input>
+        <el-input type="text" v-model="ruleForm.username" placeholder="请输入账号" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="pass">
-        <el-input type="password" v-model="ruleForm.pass" placeholder="请输入密码" autocomplete="off" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+        <el-input type="password" v-model="ruleForm.password" placeholder="请输入密码" autocomplete="off" @keyup.enter.native="submitForm('ruleForm')"></el-input>
       </el-form-item>
       <div class="loginRem">
         <el-checkbox label="记住密码" v-model="remember"></el-checkbox>
@@ -48,14 +48,14 @@ export default {
     return {
       logining: false,
       ruleForm: {
-        name: 'admin',
-        pass: 'admin'
+        username: '1@qq.com',
+        password: '123'
       },
       rules: {
-        name: [
+        username: [
           { required: true, message: '请输入账号', trigger: 'blur' },
         ],
-        pass: [
+        password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
         ]
       },
@@ -72,11 +72,11 @@ export default {
           service.login(params).then(res => {
             let { code, role = ''} = res;
             console.log(code, role)
-            if (code === 1) {
-              sessionStorage.setItem('name', this.ruleForm.name)
-              sessionStorage.setItem('pass', this.ruleForm.pass)
+            if (code === 200) {
+              sessionStorage.setItem('name', this.ruleForm.username)
+              sessionStorage.setItem('pass', this.ruleForm.password)
               sessionStorage.setItem('role', role)
-              this.$router.push('/dashboard')
+              this.$router.push('/books')
               this.$store.dispatch('app/UpdateRememberPass', this.remember)
             } else {
               this.$message({

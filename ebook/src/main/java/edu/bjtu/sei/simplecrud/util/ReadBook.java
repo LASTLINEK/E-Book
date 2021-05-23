@@ -15,8 +15,8 @@ public class ReadBook {
         if(id.equals("3")){
             return macSearch(chapter+"",(chapter + 1) + "",id);
         }
-        String chapterS = edu.bjtu.sei.simplecrud.readBook.IntString.toCapital(chapter);
-        String chapterN = edu.bjtu.sei.simplecrud.readBook.IntString.toCapital(chapter + 1);
+        String chapterS = IntString.toCapital(chapter);
+        String chapterN = IntString.toCapital(chapter + 1);
         return macSearch(chapterS,chapterN,id);
     }
     public static String macSearch(String mac,String next, String pathName) {

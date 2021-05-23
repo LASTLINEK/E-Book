@@ -39,11 +39,22 @@ module.exports = {
     proxy: {
       '/api': {
         // 目标 API 地址
-        target: 'http://localhost:8081/api',
+        target: 'http://localhost:8081',
+        changeOrigin: true, // 允许websockets跨域
+        pathRewrite: {
+          '^/api': '/api'
+        }
+      },
+      '/login': {
+        // 目标 API 地址
+        target: 'http://localhost:8081',
         // 如果要代理 websockets
         // ws: false,
         changeOrigin: true, // 允许websockets跨域
-      },
+        pathRewrite: {
+          '^/login':'/login'
+        }
+      }
 
     }, // 设置代理
     before: app => {
