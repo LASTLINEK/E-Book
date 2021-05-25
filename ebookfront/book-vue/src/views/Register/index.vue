@@ -19,9 +19,9 @@
     >
     </vue-particles>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0px" class="loginForm">
-      <h1 class="loginTitle">全流程协同管理系统</h1>
+      <h1 class="loginTitle">E-Book 注册</h1>
       <el-form-item prop="name">
-        <el-input type="text" v-model="ruleForm.name" placeholder="账号" autocomplete="off"></el-input>
+        <el-input type="text" v-model="ruleForm.name" placeholder="邮箱" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item prop="pass">
         <el-input type="password" v-model="ruleForm.pass" placeholder="密码" autocomplete="off"></el-input>

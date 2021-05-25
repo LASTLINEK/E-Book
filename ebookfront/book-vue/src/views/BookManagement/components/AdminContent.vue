@@ -22,6 +22,9 @@
         prop="name"
         align="center"
         min-width="150">
+        <template slot-scope='scope'>
+          <router-link v-bind:to="'/books/'+scope.row.id">{{scope.row.name}}</router-link>
+        </template>
       </el-table-column>
       <el-table-column
         label="Author"
@@ -37,7 +40,7 @@
       </el-table-column>
       <el-table-column label="Edit" width="250" align="center">
         <template slot-scope="scope">
-          <el-button type="info" size="mini" @click="toProject(scope.$index, scope.row)">edit</el-button>
+          <el-button type="info" size="mini" @click="editBook(scope.$index, scope.row)">edit</el-button>
           <el-button type="danger" size="mini" @click="handleDel(scope.$index, scope.row)" icon="el-icon-delete">delete</el-button>
         </template>
       </el-table-column>
@@ -52,6 +55,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import EditAdmin from './EditAdmin/EditAdmin.vue'
 import service from '@/service/index'
+import ro from "element-ui/src/locale/lang/ro";
 
 @Component({
   components: { EditAdmin }
@@ -75,12 +79,12 @@ export default class AdminContent extends Vue{
   }
 
   public handleDel(index, row) {
-    let params = {id: row.id}
-    service.deleteProject(params).then(res => {
-      let code = res['code']
+    let params = row.id
+    service.deleteBook(params).then(res => {
+      let code = res.code
       let msg = ''
       console.log(code)
-      if (code === 1) {
+      if (code === 200) {
         msg = '删除成功'
       } else {
         msg = '删除失败'
@@ -93,9 +97,9 @@ export default class AdminContent extends Vue{
     })
   }
 
-  public toProject(index, row) {
-    let params = {id: row.id}
-    this.$router.push('/dashboard')
+  public editBook(index, row) {
+    this.row = row
+    this.editVisible = true
   }
 
   // 当修改完成需要刷新数据（会返回最顶层）

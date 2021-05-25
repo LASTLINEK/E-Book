@@ -164,9 +164,10 @@ public class RestBookController {
         }
     }
 
-    @GetMapping(value = {"/api/books/{bookId}/read"})
+    @GetMapping(value = {"/api/books/{bookId}/read/{pageNumber}"})
     public ResponseEntity<ReadPage> readDeleteBookById(
-            Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber, @PathVariable long bookId) {
+            Model model, @PathVariable int pageNumber, @PathVariable long bookId) {
+        System.out.println(pageNumber);
         Book book = null;
         try {
             book = bookService.findById(bookId);
@@ -179,18 +180,13 @@ public class RestBookController {
         page.setBook(book);
         page.setPageNumber(pageNumber);
         page.setTexts(book.getContent(pageNumber, READ_PER_PAGE));
-//        model.addAttribute("texts", book.getContent(pageNumber, READ_PER_PAGE));
-//        model.addAttribute("book", book);
+
         boolean hasPrev = pageNumber > 1;
         boolean hasNext = (pageNumber * READ_PER_PAGE) < count;
         page.setHasPrev(hasPrev);
         page.setPrev(pageNumber-1);
         page.setHasNext(hasNext);
         page.setNext(pageNumber+1);
-        model.addAttribute("hasPrev", hasPrev);
-        model.addAttribute("prev", pageNumber - 1);
-        model.addAttribute("hasNext", hasNext);
-        model.addAttribute("next", pageNumber + 1);
         return ResponseEntity.ok().body(page);
     }
 

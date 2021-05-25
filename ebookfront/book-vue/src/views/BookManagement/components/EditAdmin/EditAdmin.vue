@@ -1,14 +1,17 @@
 <template>
-  <el-dialog title="编辑账号" :visible.sync="dialogFormVisible" v-dialogDrag width="25%">
+  <el-dialog title="编辑Book" :visible.sync="dialogFormVisible" v-dialogDrag width="35%">
     <el-form :model="form">
-      <el-form-item label="账号ID" :label-width="formLabelWidth">
-        <el-input v-model="form.id" autocomplete="off" class="formItem" placeholder="请输入账号id" disabled></el-input>
+      <el-form-item label="Book ID" :label-width="formLabelWidth">
+        <el-input v-model="form.id" autocomplete="off" class="formItem" placeholder="请输入Book id" disabled></el-input>
       </el-form-item>
-      <el-form-item label="名称" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off" class="formItem" placeholder="请输入账号名称"></el-input>
+      <el-form-item label="书名" :label-width="formLabelWidth">
+        <el-input v-model="form.name" autocomplete="off" class="formItem" placeholder="请输入书名"></el-input>
       </el-form-item>
-      <el-form-item label="email" :label-width="formLabelWidth">
-        <el-input v-model="form.email" autocomplete="off" class="formItem" placeholder="请输入邮箱"></el-input>
+      <el-form-item label="作者" :label-width="formLabelWidth">
+        <el-input v-model="form.author" autocomplete="off" class="formItem" placeholder="请输作者"></el-input>
+      </el-form-item>
+      <el-form-item label="简介" :label-width="formLabelWidth">
+        <el-input v-model="form.note" autocomplete="off" class="formItem" placeholder="请输入简介"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -53,21 +56,20 @@ export default class AddAdmin extends Vue implements Edit{
   }
 
   // 编辑数据并修改
-  public editAdmin() {
+  public editBook() {
     let params = this.form
     this.loading = true
-    service.putAdminList(params).then(res => {
+    service.editBook(this.form['id'], this.form).then(res => {
       this.loading = false
       this.dialogFormVisible = false
-      let { code, msg } = res.data
-      if (code == 0) {
+      if (res.code == 200) {
         this.$message({
-          message: msg,
+          message: '成功',
           type: 'success'
         })
       }
       this.$emit('flushList')  // 修改后刷新数据
-    }) 
+    })
   }
 }
 </script>

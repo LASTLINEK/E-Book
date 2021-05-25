@@ -1,12 +1,42 @@
 <template>
   <div>
-    <label v-text="'ID: '+ ID"></label>
-    <br>
-    <label v-text="'Name: ' + Name"></label>
-    <br>
-    <label v-text="'Author: ' + Author"></label>
-    <br>
-    <label v-text="'Notes:  ' + Notes"></label>
+    <el-table
+      :data="tableData"
+      highlight-current-row
+      :header-cell-style="{background:'rgba(255,218,185,0.4)',color:'#2F4F4F'}"
+    >
+      <el-table-column
+        label="Book ID"
+        prop="id"
+        align="center"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        label="书名"
+        prop="name"
+        align="center"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        label="作者"
+        prop="author"
+        align="center"
+        min-width="150">
+      </el-table-column>
+      <el-table-column
+        label="简介"
+        prop="note"
+        align="center"
+        min-width="150">
+      </el-table-column>
+      <el-table-column label="操作" width="250" align="center">
+        <template slot-scope="scope">
+          <el-button type="info" size="mini" @click="toRead(scope.$index, scope.row)">Read</el-button>
+          <el-button type="danger" size="mini" @click="uploadBook(scope.$index, scope.row)" icon="el-icon-delete">上传</el-button>
+          <el-button type="danger" size="mini" @click="downloadBook(scope.$index, scope.row)" icon="el-icon-delete">下载</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -17,26 +47,34 @@ import service from '@/service/index'
 
 
 export default {
-  name: "index",
+
   data() {
     return {
-      ID: '',
-      Name: '',
-      Author: '',
-      Notes: ''
-    }
+      tableData: [],
+      id: 0,
+  }
   },
   methods: {
-    created() {
+    toRead(){
+      this.$router.push('/books/' + this.id + '/read')
+    },
+    uploadBook(){
+
+    },
+    downloadBook(){
+
     }
   },
   created() {
-    let ii = this.$route.params.id;
-    service.book(ii).then(res => {
-      this.ID = res['id']
-      this.Name = res['name']
-      this.Author = res['author']
-      this.Notes = res['note']
+    this.id = this.$route.params.id;
+    service.book(this.id).then(res => {
+      this.tableData = [{
+        'id': res.id,
+        'name': res.name,
+        'author': res.author,
+        'note': res.note
+      }]
+      console.log(this.tableData)
     }).catch(err => {
 
     });

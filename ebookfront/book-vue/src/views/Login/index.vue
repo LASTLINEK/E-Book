@@ -32,7 +32,7 @@
       </div>
       <el-form-item>
         <el-button class="loginButton" type="info" @click="submitForm('ruleForm')" :loading="logining">登录</el-button>
-<!--        <el-button class="registerButton" type="info" @click="gotoRegister">注册</el-button>-->
+        <el-button class="registerButton" type="info" @click="gotoRegister">注册</el-button>
       </el-form-item>
     </el-form>
   </div>

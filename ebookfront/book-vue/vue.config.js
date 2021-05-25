@@ -54,6 +54,16 @@ module.exports = {
         pathRewrite: {
           '^/login':'/login'
         }
+      },
+      '/logout': {
+        // 目标 API 地址
+        target: 'http://localhost:8081',
+        // 如果要代理 websockets
+        // ws: false,
+        changeOrigin: true, // 允许websockets跨域
+        pathRewrite: {
+          '^/logout':'/logout'
+        }
       }
 
     }, // 设置代理

@@ -1,34 +1,14 @@
 <template>
-  <el-dialog title="添加项目" :visible.sync="dialogFormVisible" v-dialogDrag width="25%">
+  <el-dialog title="添加Book" :visible.sync="dialogFormVisible" v-dialogDrag width="35%">
     <el-form :model="form">
-      <el-form-item label="名称" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off" class="formItem" placeholder="请输入项目名称"></el-input>
+      <el-form-item label="名字" :label-width="formLabelWidth">
+        <el-input v-model="form.name" autocomplete="off" class="formItem" placeholder="请输入书名"></el-input>
       </el-form-item>
-      <el-form-item label="性别" :label-width="formLabelWidth">
-        <el-radio-group v-model="form.sex" class="formItem" style="width: auto; margin-top: 13px">
-          <el-radio label="男">男</el-radio>
-          <el-radio label="女">女</el-radio>
-        </el-radio-group>
+      <el-form-item label="作者" :label-width="formLabelWidth">
+        <el-input v-model="form.author" autocomplete="off" class="formItem" placeholder="请输入作者"></el-input>
       </el-form-item>
-      <el-form-item label="地址" :label-width="formLabelWidth">
-        <el-cascader
-          placeholder="请选择地址"
-          v-model="form.addr"
-          :options="options"
-          class="formItem"
-          filterable>
-        </el-cascader>
-      </el-form-item>
-      <el-form-item label="email" :label-width="formLabelWidth">
-        <el-input v-model="form.email" autocomplete="off" class="formItem" placeholder="请输入邮箱"></el-input>
-      </el-form-item>
-      <el-form-item label="创建时间" :label-width="formLabelWidth">
-        <el-date-picker
-          v-model="form.buildtime"
-          type="date"
-          placeholder="选择日期"
-          class="formItem">
-        </el-date-picker>
+      <el-form-item label="简介" :label-width="formLabelWidth">
+        <el-input v-model="form.note" autocomplete="off" class="formItem" placeholder="请输入简介"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -54,36 +34,11 @@ export default class AddAdmin extends Vue implements Add{
 
   form = {
     name: '',
-    sex: '',
-    addr: '',
-    email: '',
-    buildtime: ''
+    author: '',
+    note: '',
   }
   formLabelWidth = '120px'
 
-  options = [{
-    value: '北京',
-    label: '北京',
-    children: [{
-      value: '朝阳区',
-      label: '朝阳区',
-    }, {
-      value: '海淀区',
-      label: '海淀区',
-    }, {
-      value: '东城区',
-      label: '东城区',
-    }, {
-      value: '西城区',
-      label: '西城区',
-    }, {
-      value: '其他',
-      label: '其他',
-    }]
-  }, {
-    value: '其他地区',
-    label: '其他地区',
-  }]
 
   // 通过计算属性获取父级组件传值，并进行form表单清空
   get dialogFormVisible() {
@@ -100,12 +55,13 @@ export default class AddAdmin extends Vue implements Add{
   }
 
   public addAdmin() {
-    service.postAdminList(this.form).then(res => {
+    service.createBook(this.form).then(res => {
       this.dialogFormVisible = false
-      let { code, msg } = res.data
-      if (code == 0) {
+      console.log(res)
+      let code = res.code
+      if (code == 200) {
         this.$message({
-          message: msg,
+          message: '增加成功',
           type: 'success'
         })
       }
@@ -117,7 +73,7 @@ export default class AddAdmin extends Vue implements Add{
 
 <style lang="less" scoped>
 .formItem {
-  width: 200px;
+  width: 250px;
   float: left;
 }
 </style>

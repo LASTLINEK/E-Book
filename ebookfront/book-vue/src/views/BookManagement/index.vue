@@ -1,6 +1,7 @@
 <template>
   <div class="admin">
-    <admin-head @getHeadData='getHeadData' ref="child" :page='page'></admin-head>
+    <admin-head @getHeadData='getHeadData' ref="child" :page='page'>
+    </admin-head>
     <admin-content :tableData="tableData" :listLoading="listLoading" @contentFlush='contentFlush'></admin-content>
     <admin-foot :total="total" @getFootData='getFootData'></admin-foot>
     <div class="block"></div>
@@ -11,6 +12,7 @@
 import AdminHead from './components/AdminHead'
 import AdminContent from './components/AdminContent'
 import AdminFoot from './components/AdminFoot'
+import service from "@/service";
 
 export default {
   components: {
@@ -46,6 +48,13 @@ export default {
       this.$nextTick(() => {
         this.$refs.child.getAdmin()
       })
+    },
+    logout(){
+      service.logOut().then(res => {
+      }).catch(err => {
+
+      });
+      this.$router.push('/login')
     },
 
     // 接收从Foot传来的数据

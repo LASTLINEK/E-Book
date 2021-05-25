@@ -22,6 +22,11 @@ const routes = [
     redirect: '/login'
   },
   {
+    path: '/',
+    redirect: '/register',
+    component: () => import('../views/Register/index.vue')
+  },
+  {
     path: '/login',
     name: 'login',
     hidden: true,
@@ -44,7 +49,13 @@ const routes = [
     name: 'books',
     hidden: true,
     component: ()=>import('../views/Book/index.vue')
-  }
+  },
+  {
+    path: '/books/:id/read',
+    name: 'Read',
+    hidden: true,
+    component: ()=>import('../views/Book/Read.vue')
+  },
 ]
 
 const asyncRoutes = []

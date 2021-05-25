@@ -15,20 +15,22 @@ export default  {
     console.log(params)
     return await service.get(`${baseUrl}books/${params}`).then(res => res).catch(err => err)
   },
-  apply: async (params: Object) => {
-    console.log(params)
-    return await service.post(`${baseUrl}apply`, qs.stringify({params})).then(res => res).catch(err => err)
+  bookContent: async (id, page) => {
+    console.log(id)
+    return await service.get(`${baseUrl}books/${id}/read/${page}`).then(res => res).catch(err => err)
   },
-  //流程审批
-  approve: async () => {
-    return await service.get(`${baseUrl}approve`, qs.stringify()).then(res => res).catch(err => err)
+  logOut: async () => {
+    return await service.get(`/logout`).then(res => res).catch(err => err)
   },
-  review: async () => {
-    return await service.get(`${baseUrl}DeployReview`, qs.stringify()).then(res => res).catch(err => err)
+  deleteBook: async (id) => {
+    return await service.delete(`${baseUrl}books/${id}`).then(res => res).catch(err => err)
+  },
+  createBook: async (param) => {
+    return await service.post(`${baseUrl}books/add`, param).then(res => res).catch(err => err)
   },
   // 修改
-  change: async () => {
-    return await service.get(`${baseUrl}change`, qs.stringify()).then(res => res).catch(err => err)
+  editBook: async (id, book) => {
+    return await service.put(`${baseUrl}books/${id}`, book).then(res => res).catch(err => err)
   },
   commit: async (params: Object) => {
     console.log(params)

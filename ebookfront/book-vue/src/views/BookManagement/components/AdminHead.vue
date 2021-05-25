@@ -1,11 +1,14 @@
 <template>
   <div class="head">
+    <div>
+      当前用户：{{username}}
+      <el-button class="btout" @click="logout" style="float: right">退出登录</el-button>
+    </div>
     <el-form ref="form" :model="form" label-width="auto" class="headForm" :inline="true">
       <el-form-item label="查询的Book ID">
         <el-input v-model="form.id" placeholder="查询的Book ID" style="width: 200px"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="getAdmin" size="small" icon="el-icon-search">查询</el-button>
         <el-button type="primary" @click="toCreate" size="small" icon="el-icon-plus">新增</el-button>
         <el-button :loading="downloadLoading" type="info" @click="handleDownloadExcel" size="small" icon="el-icon-document">导出Excel</el-button>
         <el-button :loading="downloadLoading1" type="info" @click="handleDownloadZip" size="small" icon="el-icon-takeaway-box">导出Zip</el-button>
@@ -40,6 +43,8 @@ export default class AdminHead extends Vue implements Admin{
     id: '',
   }
 
+  username: string | null = ''
+
   visible = false  // 添加对话框是否可见
 
   // 请求table数据
@@ -54,11 +59,20 @@ export default class AdminHead extends Vue implements Admin{
     })
   }
 
+  logout(){
+    service.logOut().then(res => {
+    }).catch(err => {
+
+    });
+    this.$router.push('/login')
+  }
+
   public toCreate() {
-    this.$router.push('/Apply project')
+    this.visible = true
   }
 
   private created() {
+    this.username = sessionStorage.getItem('name')
     this.getAdmin()
   }
 }
@@ -74,11 +88,16 @@ export default class AdminHead extends Vue implements Admin{
   &Form {
     margin: 20px 10px 10px 10px;
     float: left;
+    .btout{
+      float: right;
+    }
   }
 }
 
 .el-form-item {
   margin-bottom: 10px;
 }
+
+
 
 </style>
